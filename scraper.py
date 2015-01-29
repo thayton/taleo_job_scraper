@@ -13,8 +13,6 @@ class TaleoJobScraper(object):
     def __init__(self):
         self.driver = webdriver.PhantomJS()
         self.driver.set_window_size(1120, 550)
-        self.browser = TaleoBrowser()
-        self.browser.set_window_size(1120, 550)
 
     def scrape_job_links(self):
         self.driver.get(link)
