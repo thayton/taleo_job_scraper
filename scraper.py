@@ -32,7 +32,6 @@ class TaleoJobScraper(object):
                 job['title'] = a.text
                 job['url'] = urlparse.urljoin(link, a['href'])
                 job['location'] = td[2].text
-                print job
                 jobs.append(job)
 
             next_page_elem = self.driver.find_element_by_id('next')
