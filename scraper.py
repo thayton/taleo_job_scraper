@@ -32,16 +32,14 @@ class TaleoJobScraper(object):
                 job['title'] = a.text
                 job['url'] = urlparse.urljoin(link, a['href'])
                 job['location'] = td[2].text
+                print job
                 jobs.append(job)
 
-            if len(jobs) > 5:
-                break
-
-            next_page = self.driver.find_element_by_id('next')
+            next_page_elem = self.driver.find_element_by_id('next')
             next_page_link = s.find('a', text='%d' % pageno)
 
             if next_page_link:
-                next_page.click()
+                next_page_elem.click()
                 pageno += 1
                 sleep(.75)
             else:
@@ -60,13 +58,14 @@ class TaleoJobScraper(object):
             if not d:
                 continue
 
-            print job
             job['desc'] = ' '.join(d.findAll(text=True))
             sleep(.75)
 
     def scrape(self):
         jobs = self.scrape_job_links()
-        self.scrape_job_descriptions(jobs)
+        for job in jobs:
+            print job
+
         self.driver.quit()
 
 if __name__ == '__main__':
